@@ -1,0 +1,27 @@
+<% flash.each do |nome, mensagem| %>
+  <%= content_tag :div, mensagem, class: nome %>
+<% end %>
+
+
+<div class="container mt-5 p-5">
+    <h1> Entre na sua conta </h1>
+
+    <%= form_with(scope: :session, url: login_path) do |f| %>
+    
+    <div class="form-group mb-3">
+        <%= f.label :Usuário %><br/>
+        <%= f.text_field :username, class: "form-control",  placeholder: "Nome de usuário" %>
+    </div>
+    
+    <div class="form-group mb-4">
+        <%= f.label :Senha %><br/>
+        <%= f.password_field :password, class: "form-control",  placeholder: "Senha" %>
+    </div>
+    
+    <div class="form-group mb-3 text-end">
+        <a class="btn btn-secondary text-light" href= "/index" type="button">Voltar</a>
+        <%= f.submit "Entrar", class: "btn btn-primary" %>
+    </div>
+    
+    <% end %>
+</div>

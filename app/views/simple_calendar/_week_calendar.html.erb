@@ -1,0 +1,54 @@
+<div class="simple-calendar">
+    <div class="calendar-heading d-flex justify-content-between pt-1 pb-1">
+        <div class="alert">
+            <%= link_to t('simple_calendar.previous', default: 'Voltar'), calendar.url_for_previous_view, class: "btn btn-outline-secondary" %>
+        </div>
+            <span class="calendar-title fs-3"> Hoje: <%= Date.today.strftime("%d/%m/%Y") %> </span>
+        <div class="alert">
+            <%= link_to t('simple_calendar.next', default: 'Avançar'), calendar.url_for_next_view, class: "btn btn-outline-secondary" %>
+        </div>
+  </div>
+
+  <table class="table table-striped p-5 shadow-lg">
+    <thead>
+      <tr> 
+        <th class="fs-5 text-center">Horário</th>
+        <th class="fs-5 text-center">Segunda-Feira</th>
+        <th class="fs-5 text-center">Terça-Feira</th>
+        <th class="fs-5 text-center">Quarta-Feira</th>
+        <th class="fs-5 text-center">Quinta-Feira</th>
+        <th class="fs-5 text-center">Sexta-Feira</th>
+      </tr>
+    </thead>
+
+    <tbody>
+     <td></td>
+        <% date_range.each_slice(7) do |week| %>
+            <% week.pop(2) %>
+
+            <% week.each do |day| %>
+                <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+                    <div class="text-center">
+                        <%= day.strftime("%d/%m/%Y") %>
+                    </div>
+                <% end %>
+            <% end %>
+
+                <% 6.upto(22).each do |hour| %>
+                    <tr></tr>
+                    <td>
+                        <%= Time.parse("#{hour}:00").strftime("%H:%M") %>
+                    </td>
+                    <% week.each do |day| %>
+                        <td>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-bs-whatever="">Disponivel</button>
+                            
+                        </td>
+                    <% end %>
+                <% end %>
+        <% end %>    
+    </tbody>
+  </table>
+</div>
+
+

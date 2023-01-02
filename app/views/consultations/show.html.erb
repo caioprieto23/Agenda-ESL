@@ -1,0 +1,28 @@
+  <h1>Meetings</h1>
+
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Start date</th>
+        <th>Start time</th>
+        <th>Description</th>
+        <th>User</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% form_with do |consultation| %>
+          <tr>
+            <td><%= link_to 'Show', consultation %></td>
+            <td><%= link_to 'Edit', consultation %></td>
+            <td><%= link_to 'Destroy', consultation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+<%= link_to 'New consultation', consultation_path %>
+  <h1>Home page</h1>

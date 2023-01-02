@@ -1,0 +1,27 @@
+<div class="simple-calendar">
+    <div class="calendar-heading d-flex justify-content-between pt-1 pb-1">
+        <div class="alert">
+            <%= link_to t('simple_calendar.previous', default: 'Voltar'), calendar.url_for_previous_view, class: "btn btn-outline-secondary" %>
+        </div>
+            <span class="calendar-title fs-3"><%= Date.today.strftime("%d/%m/%Y") %> </span>
+        <div class="alert">
+            <%= link_to t('simple_calendar.next', default: 'Avançar'), calendar.url_for_next_view, class: "btn btn-outline-secondary" %>
+        </div>
+  </div>
+
+  
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="fs-5 text-center">Horário</th>
+        <th class="fs-5 text-center">Segunda</th>
+        <th class="fs-5 text-center">Terça</th>
+        <th class="fs-5 text-center">Quarta</th>
+        <th class="fs-5 text-center">Quinta</th>
+        <th class="fs-5 text-center">Sexta</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
