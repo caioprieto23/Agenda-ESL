@@ -1,114 +1,38 @@
-        
-<div class="container-fluid fs-6">
-    <%= form_with(model: @consultation, remote: true) do |form| %>
-
-        <div class="field">
-            <%= form.label :Usuário %>
-            <%= form.text_field :title %>
-        </div>
-        <br>
-        <div class="field">
-            <%= form.label :Descrição %>
-            <%= form.text_area :description %>       
-        </div>
-        <br>
-        <div class="field">
-            <%= form.label :Data %>
-            <%= form.date_select :start_time %>
-        </div>
-        <br>
-        Horário:<br>
-        <br>
-        <div class="field">
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '06:00',class: "form-check-input" %>
-                <%= form.label :start_time, '06:00', class: "form-check-label" %>
+<% horaBrasil = @datePass+" "+@timePass+":00"+"-3:00"%>
+<% horaConvertida = horaBrasil.to_time %>
+<% if @currentTime < horaConvertida%>
+    <div class="container-fluid fs-6">
+        <%= form_with(model: @consultation, remote: true) do |form| %>
+            <div class="field">
+                <%= form.label :"Nome Da Reserva" %>
+                <%= form.text_field :title %>
             </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '07:00', class: "form-check-input" %>
-                <%= form.label :start_time, '07:00', class: "form-check-label" %>
+            <br>
+            <div class="field">
+                <%= form.label :start_time, "Data: " %>
+                <%= form.hidden_field :start_time %>
+                <%= @datePass %>
             </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '08:00', class: "form-check-input" %>
-                <%= form.label :start_time, '08:00', class: "form-check-label" %>
+            <br>
+            <div class="field">
+                <%= form.label :start_time, "Hora: " %>
+                <%= form.hidden_field :start_time %>
+                <%= "#{@timePass}:00" %>
             </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '09:00', class: "form-check-input" %>
-                <%= form.label :start_time, '09:00', class: "form-check-label"%>
+            <div class="field">
+                <%= form.label :Descrição %>
+                <%= form.text_area :description %>       
             </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '10:00', class: "form-check-input" %>
-                <%= form.label :start_time, '10:00', class: "form-check-label" %>
+
+            <div class="actions text-end">
+                <%= link_to 'Excluir', @consultation, class: "btn btn-danger text-light", method: :delete, data: { confirm: 'Tem certeza?' } %>
+                <button class="btn btn-secondary text-light" type="form.submit">Salvar</button>
             </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '11:00', class: "form-check-input" %>
-                <%= form.label :start_time, '11:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '12:00', class: "form-check-input" %>
-                <%= form.label :start_time, '12:00', class: "form-check-label" %>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '13:00', class: "form-check-input" %>
-                <%= form.label :start_time, '13:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '14:00', class: "form-check-input" %>
-                <%= form.label :start_time, '14:00', class: "form-check-label" %>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '15:00', class: "form-check-input" %>
-                <%= form.label :start_time, '15:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '16:00', class: "form-check-input" %>
-                <%= form.label :start_time, '16:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '17:00', class: "form-check-input" %>
-                <%= form.label :start_time, '17:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '18:00', class: "form-check-input" %>
-                <%= form.label :start_time, '18:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '19:00', class: "form-check-input" %>
-                <%= form.label :start_time, '19:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '20:00', class: "form-check-input" %>
-                <%= form.label :start_time, '20:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '21:00', class: "form-check-input" %>
-                <%= form.label :start_time, '21:00', class: "form-check-label"%>
-            </div>
-            <div class="form-check form-check-inline">
-                <%= form.radio_button :start_time, '22:00', class: "form-check-input" %>
-                <%= form.label :start_time, '22:00', class: "form-check-label"%>
-            </div>    
+        <% end %>
+    </div>
+<% end %>
 
+<% if @currentTime > horaConvertida%>
+    <div class="text-danger fs-6">Impossível efetuar essa reserva! </div>
+<% end %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         </div>
-        <div class="actions text-end">
-            <a class="btn btn-outline-secondary" href= "/consultations" type="button">Voltar</a>
-            <%= link_to 'Excluir', @consultation, class: "btn btn-secondary text-light", method: :delete, data: { confirm: 'Tem certeza?' } %>
-            <button class="btn btn-secondary text-light" type="form.submit">Salvar</button>
-        </div>
-    <% end %>
-</div>
