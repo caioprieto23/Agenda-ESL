@@ -1,11 +1,19 @@
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/path/to/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+</header>
+
+
+
 <div class="simple-calendar">
     <div class="calendar-heading d-flex justify-content-between pt-1 pb-1">
         <div class="alert">
-            <%= link_to t('simple_calendar.previous', default: 'Voltar'), calendar.url_for_previous_view, class: "btn btn-outline-secondary" %>
+            <%= link_to t('simple_calendar.previous', default: 'Voltar semana'), calendar.url_for_previous_view, class: "btn btn-outline-secondary" %>
         </div>
             <span class="calendar-title fs-3"> Hoje: <%= Date.today.strftime("%d/%m/%Y") %> </span>
         <div class="alert">
-            <%= link_to t('simple_calendar.next', default: 'Avançar'), calendar.url_for_next_view, class: "btn btn-outline-secondary" %>
+            <%= link_to t('simple_calendar.next', default: 'Avançar semana'), calendar.url_for_next_view, class: "btn btn-outline-secondary" %>
         </div>
   </div>
 
@@ -35,20 +43,27 @@
             <% end %>
 
                 <% 6.upto(22).each do |hour| %>
-                    <tr></tr>
+                    <tr>
                     <td>
                         <%= Time.parse("#{hour}:00").strftime("%H:%M") %>
                     </td>
-                    <% week.each do |day| %>
-                        <td>
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal" data-bs-whatever="">Disponivel</button>
-                            
-                        </td>
-                    <% end %>
+                        <% week.each do |day| %>
+
+                                <% if %>
+                                    <td>
+                                        <%= link_to('Disponível', new_consultation_path(start_time: day, end_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn-link"   })%>
+                                    </td>
+                                <% end %>
+
+
+                        <% end %>
                 <% end %>
         <% end %>    
+
     </tbody>
   </table>
 </div>
 
+
+ 
 
