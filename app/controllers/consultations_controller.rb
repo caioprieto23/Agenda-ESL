@@ -1,5 +1,5 @@
 class ConsultationsController < ApplicationController
-  before_action :set_consultation, only: %i[ show edit update destroy ]
+#   before_action :set_consultation, only: %i[ new show edit update destroy ]
 
   def index
     @consultations = Consultation.all
@@ -11,7 +11,13 @@ class ConsultationsController < ApplicationController
   end
 
   def new
-    @consultation = Consultation.new
+    # @consultation = current_user.consultations.build
+        @consultation = Consultation.new
+        @datePass = params[:start_time]
+        @timePass = params[:end_time]
+        @consultation.start_time = @datePass
+        @consultation.end_time = @timePass
+        @currentTime = Time.zone.now
   end
 
   def edit
@@ -23,11 +29,13 @@ class ConsultationsController < ApplicationController
 
     respond_to do |format|
       if @consultation.save
-        format.html { redirect_to consultations_path, notice: "Reunião foi criada com sucesso." }
-        format.json { render :home, status: :created, location: @consultation }
+        format.html { redirect_to consultations_path }
+        format.json { render :home, status: :created, location: @consultation } 
+        flash[:notice] = "Reunião foi criada com sucesso." 
       else
-        format.html { redirect_to root_path }
+        format.html { redirect_to consultations_path }
         format.json { render json: @consultation.errors, status: :unprocessable_entity }
+        flash[:notice] = "Erro na criação da reunião." 
       end
     end
   end
@@ -35,6 +43,7 @@ class ConsultationsController < ApplicationController
   def update
     respond_to do |format|
       if @consultation.update(consultation_params)
+        @consultation = Consultation.find(params[:id])
         format.html { redirect_to consultations_path, notice: "Reunião foi atualizada com sucesso." }
         format.json { render :home, status: :ok, location: @consultation }
       else
@@ -55,11 +64,11 @@ class ConsultationsController < ApplicationController
 
    private
    
-    def set_consultation
-        @consultation = Consultation.find(params[:id])
-    end
+    # def set_consultation
+    #     @consultation = Consultation.find(params[:id])
+    # end
 
     def consultation_params
-      params.require(:consultation).permit(:title, :description, :start_time, :end_time)
+      params.require(:consultation).permit(:user, :title, :description, :start_time, :end_time)
     end
 end
