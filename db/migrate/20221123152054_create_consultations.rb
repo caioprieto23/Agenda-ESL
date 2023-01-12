@@ -5,7 +5,8 @@ class CreateConsultations < ActiveRecord::Migration[6.1]
       t.text :description
       t.datetime :start_time
       t.datetime :end_time
-
+      t.belongs_to :user
+      
       t.timestamps
     end
   end

@@ -15,10 +15,13 @@ ActiveRecord::Schema.define(version: 2023_01_11_121354) do
   create_table "consultations", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.datetime "end_time"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.time "start_time"
     t.date "start_date"
+    t.index ["user_id"], name: "index_consultations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
