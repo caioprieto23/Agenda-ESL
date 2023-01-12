@@ -1,5 +1,4 @@
 class ConsultationsController < ApplicationController
-#   before_action :set_consultation, only: %i[ new show edit update destroy ]
 
   def index
     @consultations = Consultation.all
@@ -7,28 +6,38 @@ class ConsultationsController < ApplicationController
   end
 
   def show
-    @consultations = Consultation.all
+    @consultation = Consultation.find(params[:id])
   end
 
   def new
-    # @consultation = current_user.consultations.build
         @consultation = Consultation.new
-        @datePass = params[:start_time]
-        @timePass = params[:end_time]
-        @consultation.start_time = @datePass
-        @consultation.end_time = @timePass
+        @timePass = params[:start_time]
+        @consultation.start_time = @timePass
+        @datePass = params[:start_date]
+        @consultation.start_date = @datePass
         @currentTime = Time.zone.now
   end
 
   def edit
     @consultation = Consultation.find(params[:id])
+    if editUserConsultation 
+        render :edit
+    else 
+        flash[:danger] = "Erro ao editar a reunião."
+        redirect_to consultations_path
+    end
   end
+
+  def editUserConsultation
+    @consultation.user_id == session[:user_id] && Time.zone.now < @consultation.start_date
+  end 
 
   def create
     @consultation = Consultation.new(consultation_params)
+    @consultation.user_id = session[:user_id]
 
     respond_to do |format|
-      if @consultation.save
+      if @consultation.save!
         format.html { redirect_to consultations_path }
         format.json { render :home, status: :created, location: @consultation } 
         flash[:notice] = "Reunião foi criada com sucesso." 
@@ -42,8 +51,9 @@ class ConsultationsController < ApplicationController
 
   def update
     respond_to do |format|
+      @consultation = Consultation.find(params[:id])
       if @consultation.update(consultation_params)
-        @consultation = Consultation.find(params[:id])
+
         format.html { redirect_to consultations_path, notice: "Reunião foi atualizada com sucesso." }
         format.json { render :home, status: :ok, location: @consultation }
       else
@@ -54,6 +64,7 @@ class ConsultationsController < ApplicationController
   end
 
   def destroy
+    @consultation = Consultation.find(params[:id])
     @consultation.destroy
 
     respond_to do |format|
@@ -63,12 +74,8 @@ class ConsultationsController < ApplicationController
   end
 
    private
-   
-    # def set_consultation
-    #     @consultation = Consultation.find(params[:id])
-    # end
 
     def consultation_params
-      params.require(:consultation).permit(:user, :title, :description, :start_time, :end_time)
+      params.require(:consultation).permit(:user, :title, :description, :start_time, :start_date)
     end
 end
