@@ -1,9 +1,20 @@
+<nav class="navbar bg-light">
+  <form class="container-fluid justify-content">
+        <h2 class="me-5 d-flex ms-4"> Reserva de Sala </h2>
+        <div class="fs-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" 20 fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+            </svg>
+        Usuário: <%= current_user.username %>
+        </div>
+        <%= link_to "Sair", sign_out_path, method: "delete", :class => "btn btn-outline-secondary" %>   
+  </form>
+</nav>
 
-    <h1 class="text-center">Editar Reunião</h1>
 
-    <%= render 'modal', consultation: @consultation %>
 
-    <%= link_to 'Show', @consultation %> 
-    <%= link_to 'Back', @consultations_path %>
-    <%= link_to 'Destroy', @consultation.destroy %>
+<div class="container-fluid mt-5">       
+    <%= render 'modaledit', consultation: @consultation %>
+</div>
+
 

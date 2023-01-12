@@ -4,7 +4,7 @@
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 </header>
 
-
+<% reunioes = @consultations.select("consultations.id,consultations.title,consultations.description,consultations.start_date,consultations.start_time") %> 
 
 <div class="simple-calendar">
     <div class="calendar-heading d-flex justify-content-between pt-1 pb-1">
@@ -17,7 +17,7 @@
         </div>
   </div>
 
-  <table class="table table-striped p-5 shadow-lg">
+<table class="table table-striped p-5 shadow-lg">
     <thead>
       <tr> 
         <th class="fs-5 text-center">Horário</th>
@@ -28,7 +28,6 @@
         <th class="fs-5 text-center">Sexta-Feira</th>
       </tr>
     </thead>
-
     <tbody>
      <td></td>
         <% date_range.each_slice(7) do |week| %>
@@ -42,28 +41,42 @@
                 <% end %>
             <% end %>
 
-                <% 6.upto(22).each do |hour| %>
-                    <tr>
+            <% 6.upto(22).each do |hour| %>
+                <tr>
                     <td>
                         <%= Time.parse("#{hour}:00").strftime("%H:%M") %>
                     </td>
-                        <% week.each do |day| %>
 
-                                <% if %>
-                                    <td>
-                                        <%= link_to('Disponível', new_consultation_path(start_time: day, end_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn-link"   })%>
-                                    </td>
+                        <% week.each do |day| %>
+                            <td>
+                                <% time = Time.zone.now %>
+                                <% temReuniaoNoDiaNaHora = false %>
+
+                                <% reunioes.each do |reuniao| %>    
+
+                                    <%if day == reuniao.start_date && hour == reuniao.start_time.strftime("%H").to_i  %> 
+                                        <div>
+                                            Reservado para: <br> <strong><%= link_to reuniao.title, reuniao, class:"btn btn-link text-dark"%> </strong>  
+                                        </div>
+                                        <% temReuniaoNoDiaNaHora = true %>
+                                    <% end %>
+
                                 <% end %>
 
+                                <% if !temReuniaoNoDiaNaHora && time < day.strftime %>
+                                        <%= link_to('Disponível', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn-link" })%>
+                                <% end %>
 
+                                <% if !temReuniaoNoDiaNaHora && time > day.strftime %>
+                                        <%= link_to('Indisponível', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn text-secondary" })%>
+                                <% end %>
+                            </td>
                         <% end %>
-                <% end %>
+                </tr>   
+            <% end %>
         <% end %>    
-
     </tbody>
-  </table>
+</table>
 </div>
 
-
- 
 

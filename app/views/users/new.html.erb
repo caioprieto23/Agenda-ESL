@@ -1,18 +1,20 @@
-<% flash.each do |nome, mensagem| %>
-  <%= content_tag :div, mensagem, class: nome %>
-<% end %>
+<br>
+<br>
+<br>
+<br>
+
 
 <div class="container mt-5 p-5">
     <h1> Criar conta </h1><br>
     <%= form_with(model: @user, local: true) do |f| %>
     
     <div class="form-group mb-3">
-        <%= f.label :username %><br/>
+        <%= f.label :Usuário %><br/>
         <%= f.text_field :username, class: "form-control", placeholder: "Nome de usuário" %>
     </div>
 
     <div class="form-group mb-3">
-        <%= f.label :password %><br/>
+        <%= f.label :Senha %><br/>
         <%= f.password_field :password, class: "form-control", placeholder: "Senha" %>
     </div>
     
@@ -23,4 +25,3 @@
     
     <% end %>
 </div>
-

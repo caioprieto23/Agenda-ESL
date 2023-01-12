@@ -4,40 +4,67 @@
 
 <nav class="navbar bg-light">
   <form class="container-fluid justify-content">
-        <h2 class="me-5"> Reserva de Sala </h2>
+        <h2 class="me-5 d-flex ms-4"> Reserva de Sala </h2>
         <div class="fs-4">
             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" 20 fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
             </svg>
         Usuário: <%= current_user.username %>
         </div>
-        <%= link_to "Sair", sign_out_path, method: "delete", :class => "btn btn-outline-secondary" %>   
+        <%= link_to "Sair", sign_out_path, method: "delete", :class => "btn btn-outline-secondary " %>   
   </form>
 </nav>
 
-<div class="container-fluid mt-5 p-5 text-center">
-    <%= week_calendar(events: @consultations, number_of_week: 1) do |date, consultations| %>
-        <% consultations.each do |consultations| %>
+        <% flash.each do |nome, mensagem| %>
+            <%= content_tag :div, mensagem, class: "alert alert-danger text-danger" %>
         <% end %>
+
+<div class="container-fluid mt-5 p-5 text-center">
+    <%= week_calendar(events: @consultations, number_for_week: 1) do |date| %>  
     <% end %>
 </div>
 
- 
+<!-- MODAL -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="myModalLabel">Agendar Reunião</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-            <%= render 'modal', consultation: @consultation %>
+
       </div>
       <div class="modal-footer">
+        
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEdit">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 

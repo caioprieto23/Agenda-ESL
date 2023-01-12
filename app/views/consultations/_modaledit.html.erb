@@ -1,7 +1,3 @@
-<% horaBrasil = @datePass+" "+@timePass+":00"+"+7:00"%>
-<% horaConvertida = horaBrasil.to_time %>
-<% if @currentTime < horaConvertida%>
-
     <div class="container-fluid fs-6">
         <%= form_with(model: @consultation, remote: true) do |form| %>
             <div class="field">
@@ -11,13 +7,13 @@
             <hr class="border-dark border-2 opacity-100 fs-2", style="color:black">
             <div class="field">
                 <%= form.label :start_date, "Data: " %>
-                <%= form.hidden_field :start_date %>
+                <%= form.date_field :start_date %>
                 <%= @datePass %>
             </div>
             <div class="field">
                 <%= form.label :start_time, "Hora: " %>
-                <%= form.hidden_field :start_time %>
-                <%= "#{@timePass}:00" %>
+                <%= form.time_field :start_time %>
+                <%= "#{@timePass}" %>
             </div>
             <hr class="border-dark border-2 opacity-100 fs-2", style="color:black">
             <div class="field">
@@ -25,14 +21,12 @@
                 <%= form.text_area :description %>       
             </div>
 
-            <div class="actions text-end">
+            <%= form.text_field :user_id, id: :consultations_user_id, class: 'form-control', value:current_user.id, type: :hidden %>
+
+            <div class="actions d-grid gap-2 mt-5">
                 <button class="btn btn-secondary text-light" type="form.submit">Salvar</button>
+                <%= link_to "Voltar", consultation_path, :class => "btn btn-outline-secondary " %>  
             </div>
+
         <% end %>
     </div>
-
-
-<% else @currentTime > horaConvertida%>
-    <div class="text-danger fs-6">Impossível efetuar essa reserva! </div>
-<% end %>
-

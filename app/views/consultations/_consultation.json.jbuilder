@@ -1,2 +1,2 @@
-json.extract! consultation, :id, :title, :description, :start_time, :end_time, :created_at, :updated_at
+json.extract! (consultation, :id, :title, :description, :start_time, :start_date, :created_at, :updated_at, :user_id)
 json.url consultation_url(consultation, format: :json)
