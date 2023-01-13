@@ -1,7 +1,6 @@
 <header>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="/path/to/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </header>
 
 <% reunioes = @consultations.select("consultations.id,consultations.title,consultations.description,consultations.start_date,consultations.start_time") %> 
@@ -68,7 +67,7 @@
                                 <% end %>
 
                                 <% if !temReuniaoNoDiaNaHora && time > day.strftime %>
-                                        <%= link_to('Indisponível', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn text-secondary" })%>
+                                        <%= link_to('Indisponível', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn text-info" })%>
                                 <% end %>
                             </td>
                         <% end %>

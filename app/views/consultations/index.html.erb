@@ -16,8 +16,9 @@
 </nav>
 
         <% flash.each do |nome, mensagem| %>
-            <%= content_tag :div, mensagem, class: "alert alert-danger text-danger" %>
+            <%= content_tag :div, mensagem, class: "alert alert-warning  mt-2"  %>
         <% end %>
+
 
 <div class="container-fluid mt-5 p-5 text-center">
     <%= week_calendar(events: @consultations, number_for_week: 1) do |date| %>  

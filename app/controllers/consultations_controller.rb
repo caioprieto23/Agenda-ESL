@@ -23,7 +23,7 @@ class ConsultationsController < ApplicationController
     if editUserConsultation 
         render :edit
     else 
-        flash[:danger] = "Erro ao editar a reunião."
+        flash[:danger] = "Impossivel editar essa reunião!"
         redirect_to consultations_path
     end
   end
@@ -40,11 +40,11 @@ class ConsultationsController < ApplicationController
       if @consultation.save!
         format.html { redirect_to consultations_path }
         format.json { render :home, status: :created, location: @consultation } 
-        flash[:notice] = "Reunião foi criada com sucesso." 
+        flash[:notice] = "Reunião foi criada com sucesso!" 
       else
         format.html { redirect_to consultations_path }
         format.json { render json: @consultation.errors, status: :unprocessable_entity }
-        flash[:notice] = "Erro na criação da reunião." 
+        flash[:notice] = "Erro na criação da reunião!" 
       end
     end
   end
@@ -54,7 +54,7 @@ class ConsultationsController < ApplicationController
       @consultation = Consultation.find(params[:id])
       if @consultation.update(consultation_params)
 
-        format.html { redirect_to consultations_path, notice: "Reunião foi atualizada com sucesso." }
+        format.html { redirect_to consultations_path, notice: "Reunião foi atualizada com sucesso!" }
         format.json { render :home, status: :ok, location: @consultation }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class ConsultationsController < ApplicationController
     @consultation.destroy
 
     respond_to do |format|
-      format.html { redirect_to consultations_path, notice: "Reunião foi removida  com sucesso.." }
+      format.html { redirect_to consultations_path, notice: "Reunião foi removida  com sucesso!" }
       format.json { head :no_content }
     end
   end

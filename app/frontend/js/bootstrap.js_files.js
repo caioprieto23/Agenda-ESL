@@ -13,3 +13,5 @@ import 'bootstrap/js/src/scrollspy'
 // import 'bootstrap/js/src/tooltip' 
 import "@popperjs/core"
 import "bootstrap"
+
+window.$ = window.jQuery = require('jquery/dist/jquery');

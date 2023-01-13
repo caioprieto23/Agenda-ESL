@@ -11,6 +11,11 @@
   </form>
 </nav>
 
+        <% flash.each do |nome, mensagem| %>
+            <%= content_tag :div, mensagem, class: "alert alert-warning  mt-2"  %>
+        <% end %>
+
+
 <div class="container-fluid text-center mt-5 me-5">
     <table class="table table-striped">
         <thead>
@@ -31,7 +36,7 @@
                 <th><%= @consultation.start_date%></th>
                 <th><%= @consultation.start_time.strftime("%H:%M")%></th>
                 <th><%= link_to 'Editar', edit_consultation_path, class: "btn btn-warning text-light" %>
-                    <%= link_to 'Excluir', @consultation, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger text-light" %></th>
+                    </th>
             </tr>
         </tbody>
     </table>
