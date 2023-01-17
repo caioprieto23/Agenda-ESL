@@ -3,6 +3,10 @@
 <br>
 <br>
 
+        <% flash.each do |nome, mensagem| %>
+            <%= content_tag :div, mensagem, class: "alert alert-warning  mt-5"  %>
+        <% end %>
+
 <div class="container mt-5 p-5">
     <h1> Login </h1><br>
     <%= form_with(scope: :session, url: login_path) do |f| %>

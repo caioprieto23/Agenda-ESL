@@ -67,7 +67,7 @@
                                 <% end %>
 
                                 <% if !temReuniaoNoDiaNaHora && time > day.strftime %>
-                                        <%= link_to('Indisponível', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn text-info" })%>
+                                        <%= link_to('X', new_consultation_path(start_date: day, start_time: hour),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myModal', class: "btn btn text-danger" })%>
                                 <% end %>
                             </td>
                         <% end %>
